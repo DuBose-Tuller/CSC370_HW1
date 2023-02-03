@@ -1,17 +1,17 @@
 package CSC370_HW1;
 
 public class Board {
+    private int SIZE = 3;
     public int[][] tiles;
-    private int numMisplaced;
     private int taxicab;
     private int NUM_SHUFFLE_STEPS;
 
     
     public Board() {
-        int [][] tiles = new int[3][3];
-        for (int i =0; i<3; i++) {
-            for (int j=0; j<3; j++) {
-                tiles[i][j] = i*3 + j; 
+        int [][] tiles = new int[SIZE][SIZE];
+        for (int i =0; i<SIZE; i++) {
+            for (int j=0; j<SIZE; j++) {
+                tiles[i][j] = i*SIZE + j; 
             }
         }
 
@@ -23,15 +23,30 @@ public class Board {
     }
 
     // TO IMPLEMENT
-    
-    //public int total_displaced();
+
     //public int total_taxicab(); 
     //public ArrayList<Board> getNeighbors();
     //public void takeStep(ArrayList<Board> neighbors);
     //public void shuffle(); -- randomize numbers in the puzzle in a solvable way
 
-    // Question: all possible goal states?
+    public int total_displaced() {
+        int total_displaced = 0;
+
+        for (int i=0; i<SIZE; i++) {
+            for (int j=0; j<SIZE; j++) {
+                // Check if the board at this position 
+                if (this.tiles[i][j] != SIZE*i + j) {
+                    total_displaced++;
+                }
+            }
+        }
+
+        return total_displaced;
+    }
      
+    public int total_taxicab() {
+        return 0;
+    }
 
     public boolean equals(Board board) {
         for (int i =0; i<this.tiles.length; i++) {
