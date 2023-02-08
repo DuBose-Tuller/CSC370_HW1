@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Board {
     private int SIZE = 3;
     private int[][] tiles;
-    private int NUM_SHUFFLE_STEPS;
 
     /** Generates the goal state of the 8-puzzle board
       *
@@ -60,13 +59,11 @@ public class Board {
      * 
      * @return the indices of the empty tile
      */
-    private int[] getEmptyTile() {
+    public int[] getEmptyTile() {
         for (int i=0; i<SIZE; i++) {
             for (int j=0; j<SIZE; j++) {
                 if (this.tiles[i][j] == 0) {
-                    System.out.println(i);
-                    System.out.println(j);
-                    int[] toReturn = {i,j};  
+                    int[] toReturn = {j,i}; // (x,y) coordinates of the blank tile
                     return toReturn;
                 }
             }
@@ -86,8 +83,10 @@ public class Board {
       * @param y the column
       * @return a list containing all the neighbors
       */ 
-    public ArrayList<Board> getNeighbors(int x, int y) {
+    public ArrayList<Board> getNeighbors(int[] coords) {
         ArrayList<Board> neighbors = new ArrayList<Board>();
+        int x = coords[0];
+        int y = coords[1];
 
         //left
         if (0 <= (x-1) && (x-1) <= 2 && 0 <= (y) && (y) <= 2) {
@@ -127,7 +126,7 @@ public class Board {
       * @param x2 the row of the second tile
       * @param y2 the column of the second tile
       */ 
-    public void swap(int x1, int y1, int x2, int y2) {
+    private void swap(int x1, int y1, int x2, int y2) {
         // y-coordinates go first because they select the row
         int temp = this.tiles[y1][x1];
         this.tiles[y1][x1] = this.tiles[y2][x2];
@@ -139,10 +138,12 @@ public class Board {
 
         for (int t=0; t<steps; t++) {
             int[] emptyTile = state.getEmptyTile();
-            ArrayList<Board> neighbors = state.getNeighbors(emptyTile[0], emptyTile[1]);
-            int nextNeighbor = (int)Math.random()*neighbors.size();
+            ArrayList<Board> neighbors = state.getNeighbors(emptyTile);
+            int nextNeighbor = (int)(Math.random()*neighbors.size());
             state = neighbors.get(nextNeighbor);
         }
+
+        this.tiles = state.tiles;
     }
 
     public int total_displaced() {

@@ -20,7 +20,7 @@ public class Test {
         Board board = new Board(tiles);
 
         // System.out.println(board.toString());
-        // ArrayList<Board> n = board.getNeighbors(0, 0);
+        // ArrayList<Board> n = board.getNeighbors(1, 0);
         // for (Board b: n) {
         //     System.out.println(b.toString());
         // }
