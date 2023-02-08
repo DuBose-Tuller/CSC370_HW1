@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class Board {
     private int SIZE = 3;
     private int[][] tiles;
+    public int distance = 0;
+    public double priority = Double.POSITIVE_INFINITY;    
 
     /** Generates the goal state of the 8-puzzle board
       *
