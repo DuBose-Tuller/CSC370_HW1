@@ -11,11 +11,11 @@ import java.util.ArrayList;
  */
 
 
-public class Board {
+public class Board implements Comparable<Board>{
     private int SIZE = 3;
     private int[][] tiles;
     public int distance = 0;
-    public double priority = Double.POSITIVE_INFINITY;    
+    public Integer priority = Integer.MAX_VALUE;    
 
     /** Generates the goal state of the 8-puzzle board
       *
@@ -55,6 +55,7 @@ public class Board {
         }
 
         this.tiles = tiles;
+        this.distance = b.distance;
     }
 
    /** Finds the empty the tile
@@ -135,6 +136,10 @@ public class Board {
         this.tiles[y2][x2] = temp;
     }
 
+    /** Shuffles the board state by taking random legal steps
+      *
+      * @param steps number of steps taken in shuffling the board state
+      */
     public void shuffle(int steps) {
         Board state = this;
 
@@ -148,13 +153,17 @@ public class Board {
         this.tiles = state.tiles;
     }
 
+    /** Counts how many of the 9 tiles are not in the right spot
+      *
+      * @return number of misplaced tiles
+      */
     public int total_displaced() {
         int total_displaced = 0;
 
         for (int i=0; i<SIZE; i++) {
             for (int j=0; j<SIZE; j++) {
                 // Check if the board at this position 
-                if (this.tiles[i][j] != SIZE*i + j) {
+                if (this.tiles[i][j] != SIZE*i + j && this.tiles[i][j] != 0) {
                     total_displaced++;
                 }
             }
@@ -173,6 +182,8 @@ public class Board {
         for (int i=0; i<SIZE; i++) {
             for (int j=0; j<SIZE; j++) {
                 int val = this.tiles[i][j];
+                if (val == 0) {continue;}
+
                 int expected_i = (int)Math.floor(val/SIZE);
                 int expected_j = val % SIZE;
                 total_taxicab += Math.abs(i-expected_i);
@@ -198,6 +209,10 @@ public class Board {
         return true;
     }
 
+    /** Creates a string representation of the board state
+     *
+     * @return string representation of the board state
+     */
     public String toString() {
         StringBuilder s = new StringBuilder();
 
@@ -209,5 +224,13 @@ public class Board {
         }
 
         return s.toString();
+    }
+
+    /** Creates a string representation of the board state
+     *
+     * @return string representation of the board state
+     */
+    public int compareTo(Board b) {
+        return this.priority - b.priority;
     }
 }
