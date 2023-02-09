@@ -1,5 +1,7 @@
 package CSC370_HW1;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Test {
@@ -29,15 +31,22 @@ public class Test {
         int STEPS = 100;
         int[] depths = new int[STEPS];
         int[] costs = new int[STEPS];
-        for (int i=0; i<100; i++) {
-            System.out.println(i);
+        for (int i=0; i<STEPS; i++) {
             Board b = new Board();
             b.shuffle(100);
             int[] solution = a.search(new Board(), b, "taxicab");
             depths[i] = solution[0];
             costs[i] = solution[1];
         }
-        
-
+      
+        try {
+            FileWriter out = new FileWriter("CSC370_HW1/taxicab.csv");
+            for (int i=0; i<STEPS; i++) {
+                out.append(depths[i] + "," + costs[i] + "\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
