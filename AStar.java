@@ -8,6 +8,11 @@ import java.util.ArrayList;
 
 
 public class AStar {
+
+    /*
+     * 
+     */
+
     public int[] search(Board goal, Board b, String heuristic) {
         Board board = new Board(b);
         int steps = 0;
@@ -16,16 +21,15 @@ public class AStar {
         PriorityQueue<Board> frontier = new PriorityQueue<Board>();
 
         // Initialize frontier
-        enqueue_neighbors(board, frontier, explored, heuristic);
+        steps += enqueue_neighbors(board, frontier, explored, heuristic);
 
         while (!frontier.isEmpty()) {
             Board cur_state = frontier.poll();
-            steps++;
             if (cur_state.equals(goal)){
                 int[] solution = {cur_state.distance, steps};
                 return solution;
             }
-            enqueue_neighbors(cur_state, frontier, explored, heuristic);
+            steps += enqueue_neighbors(cur_state, frontier, explored, heuristic);
         }
 
 
@@ -33,7 +37,10 @@ public class AStar {
     }
 
 
-    private void enqueue_neighbors(Board start, PriorityQueue<Board> frontier, HashSet<Board> explored, String heuristic) {
+    /*
+     * @return steps: the number of neighbors addeed to the queue, which determines the search cost
+     */
+    private int enqueue_neighbors(Board start, PriorityQueue<Board> frontier, HashSet<Board> explored, String heuristic) {
         int[] blank_location = start.getEmptyTile();
         ArrayList<Board> neighbors = start.getNeighbors(blank_location);
         for (Board neighbor: neighbors) {
@@ -43,6 +50,8 @@ public class AStar {
             neighbor.priority = neighbor.distance + h;
             frontier.add(neighbor);
         }
+
+        return neighbors.size();
     }
 
     int calculateHeuristic(Board b, String heuristic) {

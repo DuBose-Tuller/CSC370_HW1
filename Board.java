@@ -15,7 +15,15 @@ public class Board implements Comparable<Board>{
     private int SIZE = 3;
     private int[][] tiles;
     public int distance = 0;
-    public Integer priority = Integer.MAX_VALUE;    
+    public Integer priority = Integer.MAX_VALUE; 
+    private int last = -1;
+    
+    /*
+     * Left: 0
+     * Right: 1
+     * Above: 2
+     * Below: 3
+     */
 
     /** Generates the goal state of the 8-puzzle board
       *
@@ -92,30 +100,34 @@ public class Board implements Comparable<Board>{
         int y = coords[1];
 
         //left
-        if (0 <= (x-1) && (x-1) <= 2 && 0 <= (y) && (y) <= 2) {
+        if (last != 1 && 0 <= (x-1) && (x-1) <= 2 && 0 <= (y) && (y) <= 2) {
             Board left = new Board(this);
             left.swap(x, y, x-1, y);
+            left.last = 0;
             neighbors.add(left);
         }
         
         //right
-        if (0 <= (x+1) && (x+1) <= 2 && 0 <= (y) && (y) <= 2) {
+        if (last != 0 && 0 <= (x+1) && (x+1) <= 2 && 0 <= (y) && (y) <= 2) {
             Board right = new Board(this);
             right.swap(x, y, x+1, y);
+            right.last = 1;
             neighbors.add(right);
         }
 
         //above
-        if (0 <= (x) && (x) <= 2 && 0 <= (y-1) && (y-1) <= 2) {
+        if (last != 3 && 0 <= (x) && (x) <= 2 && 0 <= (y-1) && (y-1) <= 2) {
             Board above = new Board(this);
             above.swap(x, y, x, y-1);
+            above.last = 2;
             neighbors.add(above);
         }
 
         //below
-        if (0 <= (x) && (x) <= 2 && 0 <= (y+1) && (y+1) <= 2) {
+        if (last != 2 && 0 <= (x) && (x) <= 2 && 0 <= (y+1) && (y+1) <= 2) {
             Board below = new Board(this);
             below.swap(x, y, x, y+1);
+            below.last = 3;
             neighbors.add(below);
         }
 
@@ -231,6 +243,11 @@ public class Board implements Comparable<Board>{
      * @return string representation of the board state
      */
     public int compareTo(Board b) {
-        return this.priority - b.priority;
+        if (this.priority - b.priority != 0) {
+            return this.priority - b.priority;
+        }
+
+        // tiebreaker: smaller g
+        return this.distance - b.distance;
     }
 }
