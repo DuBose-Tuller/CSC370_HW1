@@ -205,6 +205,25 @@ public class Board implements Comparable<Board>{
         return total_taxicab;
     }
 
+    public int off_checkerboard() {
+        int off_checkerboard = 0;
+
+        for (int i=0; i<SIZE; i++) {
+            for (int j=0; j<SIZE; j++) {
+                int val = this.tiles[i][j];
+                int index = SIZE*i + j;
+                if (val == index) {continue;} //in correct spot
+                else if ((index - val) % 2 == 0) { // same 'side' of board
+                    off_checkerboard += 2;
+                } else { // opposite 'side'
+                    off_checkerboard += 1;
+                }
+            }
+        }
+
+        return off_checkerboard;
+    }
+
     /** Checks whether the two board states are the same
      *
      * @return false if tiles do not match and true otherwise

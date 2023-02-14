@@ -41,6 +41,7 @@ public class AStar {
      * @return steps: the number of neighbors addeed to the queue, which determines the search cost
      */
     private int enqueue_neighbors(Board start, PriorityQueue<Board> frontier, HashSet<Board> explored, String heuristic) {
+        int addedToQueue = 0;
         int[] blank_location = start.getEmptyTile();
         ArrayList<Board> neighbors = start.getNeighbors(blank_location);
         for (Board neighbor: neighbors) {
@@ -49,9 +50,10 @@ public class AStar {
             int h = calculateHeuristic(neighbor, heuristic); // get h(state)
             neighbor.priority = neighbor.distance + h;
             frontier.add(neighbor);
+            addedToQueue++;
         }
 
-        return neighbors.size();
+        return addedToQueue;
     }
 
     int calculateHeuristic(Board b, String heuristic) {
@@ -62,6 +64,10 @@ public class AStar {
         if (heuristic.equalsIgnoreCase("displacement")) {
             return b.total_displaced();
         }
+
+        if (heuristic.equalsIgnoreCase("checkerboard")) {
+            return b.off_checkerboard();
+        }   
 
         return -1;
     }

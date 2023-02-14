@@ -2,7 +2,6 @@ package CSC370_HW1;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Test {
 
@@ -42,7 +41,7 @@ public class Test {
         }
       
         try {
-            FileWriter out = new FileWriter("CSC370_HW1/displacement_lower_g.csv");
+            FileWriter out = new FileWriter("CSC370_HW1/displacement-100.csv");
             for (int i=0; i<STEPS; i++) {
                 out.append(depths[i] + "," + costs[i] + "\n");
             }
