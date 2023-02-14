@@ -55,18 +55,14 @@ public class AStar {
     }
 
     int calculateHeuristic(Board b, String heuristic) {
-        try {
-            if (heuristic.equalsIgnoreCase("taxicab")) {
-                return b.total_taxicab();
-            }
-
-            if (heuristic.equalsIgnoreCase("displacement")) {
-                return b.total_displaced();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (heuristic.equalsIgnoreCase("taxicab")) {
+            return b.total_taxicab();
         }
 
-        return -1; // make java happy
+        if (heuristic.equalsIgnoreCase("displacement")) {
+            return b.total_displaced();
+        }
+
+        return -1;
     }
 }

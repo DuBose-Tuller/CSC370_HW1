@@ -26,22 +26,23 @@ public class Test {
         // System.out.print(solution[0] + " " + solution[1]);
 
 
-        int STEPS = 1000;
+        int STEPS = 10000;
         int[] depths = new int[STEPS];
         int[] costs = new int[STEPS];
         for (int i=0; i<STEPS; i++) {
-            if (i % 25 == 0) {
+            // progress bar
+            if (i % 100 == 0) {
                 System.out.println(i);
             }
             Board b = new Board();
             b.shuffle(100);
-            int[] solution = a.search(new Board(), b, "taxicab");
+            int[] solution = a.search(new Board(), b, "displacement");
             depths[i] = solution[0];
             costs[i] = solution[1];
         }
       
         try {
-            FileWriter out = new FileWriter("CSC370_HW1/taxicab_lower_g.csv");
+            FileWriter out = new FileWriter("CSC370_HW1/displacement_lower_g.csv");
             for (int i=0; i<STEPS; i++) {
                 out.append(depths[i] + "," + costs[i] + "\n");
             }
