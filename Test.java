@@ -25,7 +25,7 @@ public class Test {
         // System.out.print(solution[0] + " " + solution[1]);
 
 
-        int STEPS = 10000;
+        int STEPS = 1000;
         int[] depths = new int[STEPS];
         int[] costs = new int[STEPS];
         for (int i=0; i<STEPS; i++) {
@@ -34,14 +34,14 @@ public class Test {
                 System.out.println(i);
             }
             Board b = new Board();
-            b.shuffle(100);
+            b.shuffle(12);
             int[] solution = a.search(new Board(), b, "displacement");
             depths[i] = solution[0];
             costs[i] = solution[1];
         }
       
         try {
-            FileWriter out = new FileWriter("CSC370_HW1/displacement-100.csv");
+            FileWriter out = new FileWriter("CSC370_HW1/displacement-12.csv");
             for (int i=0; i<STEPS; i++) {
                 out.append(depths[i] + "," + costs[i] + "\n");
             }
