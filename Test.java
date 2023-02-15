@@ -7,6 +7,7 @@ public class Test {
 
     public static void main(String[] args) {
         AStar a = new AStar();
+        IDS ids = new IDS();
 
         // int [][] tiles = new int[3][3];
         // tiles[0][0] = 0;    
@@ -41,7 +42,7 @@ public class Test {
         }
       
         try {
-            FileWriter out = new FileWriter("CSC370_HW1/displacement-12.csv");
+            FileWriter out = new FileWriter("displacement-12.csv");
             for (int i=0; i<STEPS; i++) {
                 out.append(depths[i] + "," + costs[i] + "\n");
             }
