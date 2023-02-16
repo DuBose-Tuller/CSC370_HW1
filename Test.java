@@ -7,7 +7,6 @@ public class Test {
 
     public static void main(String[] args) {
         AStar a = new AStar();
-        IDS ids = new IDS();
 
         // int [][] tiles = new int[3][3];
         // tiles[0][0] = 0;    
