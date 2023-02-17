@@ -1,0 +1,15 @@
+
+\section{Background}
+\label{sec:background}
+The 8-puzzle is a simple sliding game consisting of 8 numbered square tiles and an empty tile placed randomly on a 3-by-3 grid. 
+The game involves rearranging the numbered tiles within the frame by sliding them one at a time into the empty tile, with the goal of arranging the numbered tiles in ascending numerical order with the empty tile in the upper-left corner of the frame. \\
+
+\noindent To solve the 8-puzzle, we used A* algorithm with three different heuristic functions:
+\begin{itemize}
+  \item Manhattan Distance ($h_{MD}$): calculates the sum of the Manhattan distance between each tile and its correct position in the goal state.
+  \item Misplaced Tiles ($h_{MT}$): finds the number of tiles that are not in the correct position.
+  \item Checkerboard Misplaced ($h_{CM}$): divides the frame into two sub-graphs composed of tiles connected by diagonals and determines the minimum number of steps between a tile's current and target position, where the tile can move to any location in the \emph{other} sub-graph.
+\end{itemize}
+
+\noindent All three heuristics are admissible and derived by creating a relaxed version of the 8-puzzle’s rules that a computer can solve without searching. Heuristics designed based on "less" relaxed problems produce estimates that are closer to the actual search cost \cite{heuristics}.
+

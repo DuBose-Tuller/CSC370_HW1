@@ -1,0 +1,12 @@
+
+\section{Conclusions}
+\label{sec:concl}
+
+In this paper, we assessed the impact of heuristic function on the performance of A* by solving the 8-puzzle utilizing Manhattan Distance, Misplaced Tiles, and Checkerboard Misplaced heuristics. Our study confirms Russell and Norwig's results, as patterns of search cost with respect to depth are consistent. Moreover, the performance of the additional Checkerboard method falls in between the two from their study. We conclude that consistent heuristics that more accurately estimate the true number of steps to the goal state result in better A* search performance. Future research can examine other heuristics and apply $h_{MD}$, $h_{MT}$, and $h_{CM}$ to boards of larger sizes. Additionally, analyzing versions of the game where multiple goal states exist (e.g., considering all boards with ascending tiles valid regardless of the empty tile's position on the board) can provide a deeper understanding of the impact of heuristic quality on A* performance. 
+
+% We suspect that this might have to do with the way that we generated our random states, since Russell and Norvig likely generated their board states more procedurally.
+ 
+% In this section, briefly summarize your paper --- what problem did you
+% start out to study, and what did you find? What is the key result /
+% take-away message? It's also traditional to suggest one or two avenues
+% for further work, but this is optional.
